@@ -64,17 +64,19 @@ export default function Home() {
   });
 
   
-
+//<main className="relative min-h-screen w-full">
+// <div className="flex min-h-screen items-center justify-center font-sans">
+//<main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-8 py-32 px-16 sm:items-start">
 
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-8 py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <h1 className="text-3xl font-semibold">
+    <div className="flex min-h-screen items-center justify-center font-sans">
+      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-8 py-32 px-16 sm:items-start">
+        <h1 className="text-3xl font-semibold text-[color:var(--foreground)]">
           Support Local Businesses
         </h1>
 
-        <p className="text-zinc-600">
+        <p className="text-[color:var(--muted)]">
           Discover and support small businesses in your community.
         </p>
 
@@ -84,7 +86,7 @@ export default function Home() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="rounded border px-2 py-1 text-sm"
+           className="rounded border border-[color:var(--card-border)] bg-[color:var(--card)] px-2 py-1 text-sm text-[color:var(--foreground)]"
           >
             <option value="name">Name</option>
             <option value="rating">Rating</option>
@@ -96,7 +98,7 @@ export default function Home() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="rounded border px-2 py-1 text-sm"
+            className="rounded border border-[color:var(--card-border)] bg-[color:var(--card)] px-2 py-1 text-sm text-[color:var(--foreground)]"
           >
             <option value="all">All</option>
             {categories.map((category) => (
