@@ -1,4 +1,12 @@
+
+import Link from "next/link";
+
+
+
 export default function Hero() {
+
+
+
   return (
 
 //custamizability for hero      pt-24 pb-32
@@ -73,9 +81,11 @@ export default function Hero() {
                     Explore Businesses
                     </button>
 
-                    <button className="rounded-md border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition">
-                    Add Your Business
-                    </button>
+                    <Link href="/add-business">
+                        <button className="rounded-md border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition">
+                            Add Your Business
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

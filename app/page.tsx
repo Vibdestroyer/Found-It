@@ -15,7 +15,8 @@ export default function Home() {
     const fetchBusinesses = async () => {
       const { data, error } = await supabase
         .from("businesses")
-        .select("*");
+        .select("*")
+        .eq("status", "approved");
 
       console.log("Supabase data:", data);
       console.log("Supabase error:", error);
