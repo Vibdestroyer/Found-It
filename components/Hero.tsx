@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-
+import Image from "next/image";
 
 
 export default function Hero() {
@@ -135,10 +135,14 @@ export default function Hero() {
                 {/* Image */}
                 <div className="absolute inset-0 flex items-center justify-center">
                 
-                <img
+                <Image
                     src="/SLB_Suit.png"
                     alt="Founder"
-                    className="absolute right-8 top-4 h-140 w-140 rounded-full object-cover z-10"
+                    width={550}
+                    height={550}
+                    sizes="(min-width: 1024px) 180px, 120px"
+                    priority
+                    className="absolute right-8 top-4 rounded-full object-cover z-10"
                 />
                 </div>
 
