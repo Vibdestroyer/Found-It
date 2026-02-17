@@ -3,17 +3,15 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative z-20 w-full min-h-screen overflow-hidden pt-0 pb-0">
+    <section className="relative z-20 w-full overflow-hidden pt-20 pb-[min(12vh,6rem)] lg:min-h-screen">
+
+
+
       
         {/* ================= BACKGROUND LAYER ================= */}
-        <div className="absolute inset-0 -z-10">
-        
-            {/* Black fade */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-transparent" />
+        <div
+            className="absolute inset-0 animate-[pulse_12s_ease-in-out_infinite]"
 
-            {/* Slashed texture */}
-            <div
-            className="absolute inset-0"
             style={{
                 backgroundImage: `
                 repeating-linear-gradient(
@@ -35,124 +33,125 @@ export default function Hero() {
                     transparent 1px
                 )
                 `,
-                backgroundSize: "auto, auto, 24px 24px",
+                backgroundSize:
+                "auto, auto, clamp(16px, 2vw, 28px) clamp(16px, 2vw, 28px)",
                 opacity: 0.35,
                 maskImage:
-                "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
+                "linear-gradient(to bottom, black 0%, black 75%, transparent 100%)",
                 WebkitMaskImage:
-                "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
+                "linear-gradient(to bottom, black 0%, black 75%, transparent 100%)",
             }}
-            />
-        </div>
+        />
+
 
         {/* ================= CONTENT GRID ================= */}
-       <div className="relative flex min-h-screen items-center pt-10 lg:pt-10 lg:pb-60 ">
+       <div className="relative flex items-center pt-10">
+
 
             <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-[1fr_.9fr]">
         
                 {/* ========== LEFT: TEXT COLUMN ========== */}
-                <div className="pr-5 lg:pl-6">
-                    <div className="pl-20">
-                        
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tight text-white ">
+                <div className="relative pr-5 lg:pl-6">
+                    <div className="mx-auto max-w-[650px] text-center lg:text-left">
+
+                        <h1 className="font-semibold tracking-tight text-white leading-tight text-[clamp(2.5rem,5vw,5rem)]">
                         Supporting Local Businesses & Communities
                         </h1>
 
-                        <p className="mt-6 max-w-xl pl-2 lg:pt-14 lg:pb-10 text-lg  md:text-2xl text-zinc-300">
-                        Welcome to Marmot Association - A community dedicated to helping
+                        <p className="mt-8 text-zinc-300 text-[clamp(1rem,1.5vw,1.4rem)]">
+                        Welcome to Marmot Association — a community dedicated to helping
                         you find and support local small businesses in your area.
                         </p>
 
                         {/* CTA buttons */}
-                        <div className="mt-16 flex gap-4">
-                        <button className="rounded-md bg-purple-600 px-6 py-3 text-sm md:text-lg font-medium text-white transition hover:bg-purple-500">
+                        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
+
+                        <button className="rounded-md bg-purple-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-purple-500">
                             Explore Businesses
                         </button>
 
                         <Link href="/add-business">
-                            <button className="rounded-md border border-white/20 px-6 py-3 text-sm md:text-lg font-medium text-white transition hover:bg-white/10">
+                            <button className="rounded-md border border-white/20 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10">
                             Add Your Business
                             </button>
                         </Link>
                         </div>
-                    </div>
-                    </div>
-
-                    {/* ========== RIGHT: VISUAL COLUMN ========== */}
-                    <div className="relative h-[500px] w-full lg:pl-12">
-                    
-                    {/* Card container */}
-                    <div className="absolute inset-0 overflow-hidden rounded-2xl bg-white/2">
-
-                        {/* ===== Abstract accent shapes ===== */}
-                        <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl" />
-                        <div className="absolute bottom-[-60px] left-[-40px] h-32 w-32 rounded-full bg-fuchsia-500/20 blur-2xl" />
-                        <div className="absolute right-37 top-18 -z-10 h-72 w-72 rounded-full bg-purple-600/30 blur-3xl" />
-
-                        {/* Angled accent */}
-                        <div
-                        className="absolute top-16 left--40 h-32 w-164 rotate-[-18deg] bg-purple-700/20"
-                        style={{
-                            clipPath: "polygon(0 0, 100% 0, 45% 100%, 0 100%)",
-                            background:
-                            "linear-gradient(90deg, rgba(124,45,18,0.15) 0%, rgba(126,34,206,0.35) 50%, rgba(134,25,143,0.65) 100%)",
-                        }}
-                        />
-
-                        {/* ===== Vertical pillars ===== */}
-                        <div className="absolute bottom-0 -right-24 h-[380px] w-48 rounded-t-full bg-purple-800/35 animate-float-slowest" />
-                        <div className="absolute bottom-0 right-4 h-[320px] w-32 rounded-t-full bg-purple-700/40 animate-float-slow" />
-                        <div className="absolute bottom-0 right-20 h-[260px] w-24 rounded-t-full bg-fuchsia-600/35 animate-float-slower" />
-                        <div className="absolute bottom-0 right-36 h-[200px] w-20 rounded-t-full bg-purple-500/30 animate-float-fast" />
-
-                        {/* ===== Left ambient shapes ===== */}
-                        <div className="absolute top-4 left-46 h-56 w-56 rounded-full bg-purple-600/20 blur-3xl animate-float-slower" />
-                        <div className="absolute top-32 left-12 h-32 w-32 rounded-full bg-fuchsia-500/15 blur-2xl animate-float-slowest" />
-                        <div className="absolute bottom-20 left-4 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl animate-float-slower" />
-
-                        {/* Subtle overlay gradient */}
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-
-                        {/* ===== Image ===== */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                        <Image
-                            src="/SLB_Suit.png"
-                            alt="Founder"
-                            width={550}
-                            height={550}
-                            sizes="(min-width: 1024px) 180px, 120px"
-                            priority
-                            className="absolute right-8 top-4 z-10 rounded-full object-cover"
-                        />
-                        </div>
-
-                        {/* ===== Slanted bars ===== */}
-                        <div
-                        className="absolute bottom-[-35px] left-[-10%] right-[-10%] z-30 h-28 rotate-[-4deg]"
-                        style={{
-                            background:
-                            "linear-gradient(90deg, rgba(88,28,135,0.55) 0%, rgba(126,34,206,.75) 50%, rgba(196,25,73,0.85) 100%)",
-                        }}
-                        />
-
-                        <div
-                        className="absolute bottom-[25px] left-[-30%] right-[-10%] z-30 h-28 rotate-[35deg]"
-                        style={{
-                            background:
-                            "linear-gradient(90deg, rgba(124,45,18,.55) 0%, rgba(126,34,206,.75) 50%, rgba(134,25,143,0.55) 100%)",
-                        }}
-                        />
-
-                        {/* ===== Quote ===== */}
-                        <div className="absolute bottom-4 left-4 right-4 z-40">
-                        <p className="text-sm italic leading-relaxed text-zinc-300">
-                            “When you support a small business, you're supporting a dream.”
-                        </p>
-                        </div>
 
                     </div>
                 </div>
-           </div>
+
+
+                {/* ========== RIGHT: VISUAL COLUMN ========== */}
+                <div className="relative w-full lg:pl-12">
+  
+                    {/* DESIGN CANVAS */}
+                    <div className="relative mx-auto aspect-[4/3] w-full max-w-[1000px]">
+
+                        {/* Card container */}
+                        <div className="absolute inset-0 overflow-hidden rounded-2xl bg-white/5">
+
+                        {/* Ambient shapes */}
+                        <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl" />
+                        <div className="absolute bottom-[-60px] left-[-40px] h-32 w-32 rounded-full bg-fuchsia-500/20 blur-2xl" />
+                        <div className="absolute right-1/4 top-1/4 h-72 w-72 rounded-full bg-purple-600/30 blur-3xl" />
+
+                        {/* Vertical animated pillars */}
+                        <div className="absolute bottom-0 right-[-6%] h-[85%] w-[18%] rounded-t-full bg-purple-800/35 animate-float-slowest" />
+                        <div className="absolute bottom-0 right-[4%] h-[70%] w-[16%] rounded-t-full bg-purple-700/40 animate-float-slow" />
+                        <div className="absolute bottom-0 right-[12%] h-[57%] w-[14%] rounded-t-full bg-fuchsia-600/35 animate-float-slower" />
+                        <div className="absolute bottom-0 right-[20%] h-[48%] w-[12%] rounded-t-full bg-purple-500/30 animate-float-fast" />
+
+                        {/* Image — fluid scaling */}
+                        <div className="absolute right-[5%] top-[10%] w-[80%]  aspect-square">
+                            <Image
+                            src="/SLB_Suit.png"
+                            alt="Founder"
+                            fill
+                            priority
+                            className="rounded-full object-cover"
+                            />
+                        </div>
+
+                        {/* Slanted bar */}
+                        <div
+                            className="absolute bottom-[-10%] left-[-10%] right-[-10%] h-[20%] rotate-[-4deg]"
+                            style={{
+                            background:
+                                "linear-gradient(90deg, rgba(88,28,135,0.55) 0%, rgba(126,34,206,.75) 50%, rgba(196,25,73,0.85) 100%)",
+                            }}
+                        />
+
+                        {/* Slanted bar */}
+                        <div
+                            className="absolute bottom-[8%] left-[-20%] right-[-10%] h-[15%] rotate-[40deg]"
+                            style={{
+                            background:
+                                "linear-gradient(90deg, rgba(124,45,18,.55) 0%, rgba(126,34,206,.75) 50%, rgba(134,25,143,0.55) 100%)",
+                            }}
+                        />
+
+                        {/* Slanted bar */}
+                        <div
+                            className="absolute bottom-[80%] left-[-20%] right-[-10%] h-[15%] rotate-[-10deg]"
+                            style={{
+                            clipPath: "polygon(0 0, 100% 0, 45% 100%, 0 100%)",
+                            background:
+                                "linear-gradient(90deg, rgba(124,45,18,.55) 0%, rgba(126,34,206,.75) 50%, rgba(134,25,143,0.55) 100%)",
+                            }}
+                        />
+
+                        {/* Quote */}
+                        <div className="absolute bottom-[5%] left-[5%] right-[5%]">
+                            <p className="text-sm italic text-zinc-300">
+                            “When you support a small business, you're supporting a dream.”
+                            </p>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
   );
