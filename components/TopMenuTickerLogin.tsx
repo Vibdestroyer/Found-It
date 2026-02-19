@@ -118,7 +118,7 @@ export default function TopMenuTickerLogin() {
 
           <Link href="/login" className="md:hidden">
             <Image
-              src="/SLB_Suit.png"
+              src="/unknownUser.png"
               alt="Profile"
               width={36}
               height={36}

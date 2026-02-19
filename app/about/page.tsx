@@ -116,7 +116,7 @@ export default function AboutPage() {
             <div className="relative flex-1 rounded-2xl overflow-hidden border border-white/10 group">
               <div className="relative h-[420px] w-full">
                 <Image
-                  src="/SLB_Suit.png"
+                  src="/ajSuit.png"
                   alt="Team Member"
                   fill
                   className="object-cover"
@@ -127,7 +127,7 @@ export default function AboutPage() {
 
               <div className="absolute bottom-6 left-6 right-6">
                 <h3 className="text-xl font-semibold mb-2">
-                  Aaron Jagroop
+                  Ayron Jagroop
                 </h3>
                 <p className="text-sm text-zinc-300 leading-relaxed">
                   Frontend developer responsible for user experience, interface
@@ -140,7 +140,7 @@ export default function AboutPage() {
             <div className="relative flex-1 rounded-2xl overflow-hidden border border-white/10 group">
               <div className="relative h-[420px] w-full">
                 <Image
-                  src="/SLB_Suit.png"
+                  src="/unknownUser.png"
                   alt="Team Member"
                   fill
                   className="object-cover"
