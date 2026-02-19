@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 import FoundItemCard from "../components/FoundItemCard";
 import Hero from "@/components/Hero";
@@ -10,6 +10,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const itemsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -33,9 +34,7 @@ export default function Home() {
   ----------------------------- */
 
   const categories = useMemo(() => {
-    const unique = new Set(
-      items.map((item) => item.category).filter(Boolean)
-    );
+    const unique = new Set(items.map((item) => item.category).filter(Boolean));
     return Array.from(unique);
   }, [items]);
 
@@ -45,12 +44,10 @@ export default function Home() {
 
   const filteredItems = items
     .filter((item) =>
-      item.item_name?.toLowerCase().includes(search.toLowerCase())
+      item.item_name?.toLowerCase().includes(search.toLowerCase()),
     )
     .filter((item) =>
-      categoryFilter === "all"
-        ? true
-        : item.category === categoryFilter
+      categoryFilter === "all" ? true : item.category === categoryFilter,
     );
 
   /* -----------------------------
@@ -79,17 +76,13 @@ export default function Home() {
   return (
     <div className="flex min-h-screen justify-center font-sans">
       <main className="relative min-h-screen w-full">
-
-        <Hero />
+        <Hero itemsRef={itemsRef} />
 
         <section className="mx-auto max-w-6xl px-6 py-10">
-
           {/* SEARCH + FILTER + SORT */}
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-
             {/* LEFT SIDE CONTROLS */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-
               {/* Search */}
               <input
                 type="text"
@@ -113,7 +106,6 @@ export default function Home() {
                   </option>
                 ))}
               </select>
-
             </div>
 
             {/* SORT DROPDOWN */}
@@ -126,11 +118,13 @@ export default function Home() {
               <option value="oldest">Oldest</option>
               <option value="alphabetical">Alphabetical</option>
             </select>
-
           </div>
 
           {/* ITEM GRID */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            ref={itemsRef}
+          >
             {sortedItems.map((item) => (
               <FoundItemCard
                 key={item.id}
@@ -143,7 +137,6 @@ export default function Home() {
               />
             ))}
           </div>
-
         </section>
       </main>
     </div>
