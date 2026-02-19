@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SLB - Marmot Association",
-  description: "Discover and support local businesses in your community.",
+  title: "Found It - Marmot Association",
+  description: "Discover and find your lost items.",
 };
 
 
