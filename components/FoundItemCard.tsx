@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/lib/useUser";
 
 type FoundItemCardProps = {
   id: string;
@@ -13,6 +15,7 @@ type FoundItemCardProps = {
 };
 
 export default function FoundItemCard({
+  id,
   title,
   description,
   location_found,
@@ -20,6 +23,18 @@ export default function FoundItemCard({
   image_url,
 }: FoundItemCardProps) {
   const [expanded, setExpanded] = useState(false);
+  const router = useRouter();
+  const { user } = useUser();
+
+  const handleClaimClick = () => {
+    if (!user) {
+      alert("You must be logged in to claim an item.");
+      router.push("/login");
+      return;
+    }
+
+    router.push(`/claim/${id}`);
+  };
 
   return (
     <div
@@ -42,7 +57,6 @@ export default function FoundItemCard({
           </div>
         )}
 
-        {/* Bottom gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
       </div>
 
@@ -84,7 +98,10 @@ export default function FoundItemCard({
               {description}
             </p>
 
-            <button className="w-full rounded-lg bg-purple-600 py-2 text-sm font-medium text-white transition hover:bg-purple-500">
+            <button
+              onClick={handleClaimClick}
+              className="w-full rounded-lg bg-purple-600 py-2 text-sm font-medium text-white transition hover:bg-purple-500"
+            >
               Claim This Item
             </button>
           </div>

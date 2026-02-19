@@ -6,36 +6,58 @@ import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import Image from "next/image";
 
-const items = [
-  "Alex donated $10 to Green Leaf Café",
-  "Maria supported Downtown Books",
-  "James left a review for Sunrise Bakery",
-  "Local Market reached 100 supporters",
-];
-
 export default function TopMenuTickerLogin() {
+  const [items, setItems] = useState<string[]>([]);
   const [index, setIndex] = useState(0);
   const { user, loading } = useUser();
 
+  // Fetch items from last 7 days
   useEffect(() => {
+    const fetchItems = async () => {
+      const oneWeekAgo = new Date();
+      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+      const { data, error } = await supabase
+        .from("found_items")
+        .select("item_name, location_found, created_at")
+        .eq("status", "approved")
+        .gte("created_at", oneWeekAgo.toISOString())
+        .order("created_at", { ascending: false });
+
+      if (!error && data) {
+        const formatted = data.map((item) => {
+          return `📦 New item reported: ${item.item_name} — ${item.location_found}`;
+        });
+
+        setItems(formatted);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
+  // Auto rotate
+  useEffect(() => {
+    if (items.length === 0) return;
+
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % items.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [items]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-black/30 border-b border-white/10">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
 
-        {/* LEFT: Brand */}
+        {/* LEFT */}
         <div className="flex items-center gap-6">
           <Link
             href="/about"
             className="text-sm font-semibold tracking-widest text-white uppercase hover:text-purple-400 transition"
           >
-            Marmot Association
+            Found It
           </Link>
 
           <Link
@@ -46,18 +68,19 @@ export default function TopMenuTickerLogin() {
           </Link>
         </div>
 
-        
-
-        {/* CENTER: Ticker (hidden on small screens) */}
+        {/* CENTER TICKER */}
         <div className="hidden md:block overflow-hidden whitespace-nowrap text-sm text-zinc-400">
-          <span key={index} className="inline-block animate-fade">
-            {items[index]}
-          </span>
+          {items.length > 0 ? (
+            <span key={index} className="inline-block animate-fade">
+              {items[index]}
+            </span>
+          ) : (
+            <span>No recent items reported</span>
+          )}
         </div>
 
         {/* RIGHT */}
         <div className="flex items-center gap-4">
-          {/* Desktop Auth */}
           <div className="hidden md:flex items-center gap-4">
             {!loading && !user && (
               <>
@@ -93,7 +116,6 @@ export default function TopMenuTickerLogin() {
             )}
           </div>
 
-          {/* Mobile Profile Icon */}
           <Link href="/login" className="md:hidden">
             <Image
               src="/SLB_Suit.png"

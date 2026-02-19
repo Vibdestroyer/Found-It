@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 export default function SignUpPage() {
@@ -103,6 +104,18 @@ export default function SignUpPage() {
         >
           Sign Up
         </button>
+
+        {/* Divider */}
+        <div className="mt-6 text-center text-sm text-zinc-400">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-purple-400 hover:text-purple-300 underline underline-offset-4"
+          >
+            Log in here
+          </Link>
+        </div>
+
       </form>
     </div>
   );
