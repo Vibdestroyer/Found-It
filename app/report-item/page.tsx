@@ -80,7 +80,7 @@ export default function ReportItemPage() {
       date_found: dateFound,
       status: "pending",
       submitted_by: user.id,
-      image_url: uploadData.fullPath ? supabase.storage.from("item-images").getPublicUrl(uploadData.fullPath)?.data?.publicUrl : null,
+      image_url: uploadData.fullPath ? supabase.storage.from("item-images").getPublicUrl(uploadData.path)?.data?.publicUrl : null,
     });
 
     if (error) {
