@@ -54,17 +54,17 @@ export default function TopMenuTickerLogin() {
         {/* LEFT */}
         <div className="flex items-center gap-6">
           <Link
-            href="/about"
+            href="/"
             className="text-sm font-semibold tracking-widest text-white uppercase hover:text-purple-400 transition"
           >
             Found It
           </Link>
 
           <Link
-            href="/"
+            href="/about"
             className="text-sm text-zinc-300 hover:text-white transition"
           >
-            Home
+            About
           </Link>
         </div>
 
