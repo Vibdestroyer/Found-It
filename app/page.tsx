@@ -116,16 +116,7 @@ export default function Home() {
 
             </div>
 
-            {/* SORT DROPDOWN */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="rounded-md border border-white/20 bg-black/40 px-3 py-2 text-white"
-            >
-              <option value="newest">Newest</option>
-              <option value="oldest">Oldest</option>
-              <option value="alphabetical">Alphabetical</option>
-            </select>
+            
 
           </div>
 

@@ -6,12 +6,7 @@ export default function AboutPage() {
 
       {/* ================= BACKGROUND ================= */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-
-        {/* Base dark layer */}
         <div className="absolute inset-0 bg-black" />
-
-        
-        {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-[35%] bg-gradient-to-t from-black to-transparent" />
       </div>
 
@@ -20,12 +15,13 @@ export default function AboutPage() {
         {/* ================= HEADER ================= */}
         <div className="mb-20 text-center">
           <h1 className="font-semibold tracking-tight text-[clamp(2.5rem,5vw,4rem)]">
-            About Marmot Association
+            About Found It
           </h1>
 
           <p className="mt-6 text-zinc-400 text-[clamp(1rem,1.5vw,1.25rem)] max-w-3xl mx-auto">
-            A student-led platform dedicated to helping communities discover,
-            support, and elevate local businesses.
+            Found It is a student-built lost and found platform designed to
+            reconnect people with their missing belongings quickly, securely,
+            and efficiently.
           </p>
         </div>
 
@@ -34,18 +30,19 @@ export default function AboutPage() {
           <div>
             <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
             <p className="text-zinc-300 leading-relaxed">
-              Marmot Association was built to strengthen local economies by
-              connecting people with small businesses in their area.
-              We believe local support builds stronger communities.
+              Our mission is simple: make it easy to report, search, and recover
+              lost items within our school community. By centralizing lost and
+              found reports in one accessible place, we reduce confusion and
+              increase the chances of items being returned.
             </p>
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Our Vision</h2>
             <p className="text-zinc-300 leading-relaxed">
-              We aim to create a transparent and accessible platform where
-              businesses can grow, customers can contribute, and communities
-              thrive together.
+              We aim to create a trusted digital space where students can take
+              responsibility for lost items, improve accountability, and help
+              one another. Found It is built to be fast, reliable, and easy to use.
             </p>
           </div>
         </div>
@@ -58,46 +55,45 @@ export default function AboutPage() {
 
           <div className="grid gap-8 md:grid-cols-3 text-center">
             <div className="p-6 rounded-xl border border-white/10 bg-white/5">
-              <h3 className="font-semibold mb-2">Discover</h3>
+              <h3 className="font-semibold mb-2">Report</h3>
               <p className="text-zinc-400 text-sm">
-                Browse verified local businesses in your area.
+                Found an item? Upload a description and photo so others can identify it.
               </p>
             </div>
 
             <div className="p-6 rounded-xl border border-white/10 bg-white/5">
-              <h3 className="font-semibold mb-2">Support</h3>
+              <h3 className="font-semibold mb-2">Search</h3>
               <p className="text-zinc-400 text-sm">
-                Donate, review, or promote businesses you care about.
+                Browse reported items or search by keywords to find what you’ve lost.
               </p>
             </div>
 
             <div className="p-6 rounded-xl border border-white/10 bg-white/5">
-              <h3 className="font-semibold mb-2">Grow</h3>
+              <h3 className="font-semibold mb-2">Reconnect</h3>
               <p className="text-zinc-400 text-sm">
-                Help small businesses reach more customers and thrive.
+                Claim and verify ownership so items can be returned safely.
               </p>
             </div>
           </div>
         </div>
 
-        {/* ================= FOUNDERS SECTION ================= */}
+        {/* ================= TEAM SECTION ================= */}
         <div className="relative">
 
-          {/* Section glow background */}
           <div className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-900/10 via-fuchsia-900/10 to-purple-900/10 blur-3xl opacity-60" />
 
           <h2 className="text-center text-2xl font-semibold mb-12">
-            Meet the Founders
+            Built By Students
           </h2>
 
           <div className="flex flex-col gap-12 lg:flex-row">
 
-            {/* Founder Card 1 */}
+            {/* Team Member 1 */}
             <div className="relative flex-1 rounded-2xl overflow-hidden border border-white/10 group">
               <div className="relative h-[420px] w-full">
                 <Image
                   src="/SLB_Suit.png"
-                  alt="Founder 1"
+                  alt="Team Member"
                   fill
                   className="object-cover"
                 />
@@ -110,17 +106,18 @@ export default function AboutPage() {
                   Victor Braday
                 </h3>
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                  Short description about your role and contributions to Marmot Association.
+                  Lead developer focused on backend systems, database structure,
+                  and secure item submission.
                 </p>
               </div>
             </div>
 
-            {/* Founder Card 2 */}
+            {/* Team Member 2 */}
             <div className="relative flex-1 rounded-2xl overflow-hidden border border-white/10 group">
               <div className="relative h-[420px] w-full">
                 <Image
                   src="/SLB_Suit.png"
-                  alt="Founder 2"
+                  alt="Team Member"
                   fill
                   className="object-cover"
                 />
@@ -130,20 +127,21 @@ export default function AboutPage() {
 
               <div className="absolute bottom-6 left-6 right-6">
                 <h3 className="text-xl font-semibold mb-2">
-                    Aaron Jagroop
+                  Aaron Jagroop
                 </h3>
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                    Short description about your role and contributions to Marmot Association.
+                  Frontend developer responsible for user experience, interface
+                  design, and responsive layout.
                 </p>
               </div>
             </div>
 
-            {/* Founder Card 3 */}
+            {/* Team Member 3 */}
             <div className="relative flex-1 rounded-2xl overflow-hidden border border-white/10 group">
               <div className="relative h-[420px] w-full">
                 <Image
                   src="/SLB_Suit.png"
-                  alt="Founder 3"
+                  alt="Team Member"
                   fill
                   className="object-cover"
                 />
@@ -153,10 +151,11 @@ export default function AboutPage() {
 
               <div className="absolute bottom-6 left-6 right-6">
                 <h3 className="text-xl font-semibold mb-2">
-                    Janka
+                  Janka
                 </h3>
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                    Short description about your role and contributions to Marmot Association.
+                  Project contributor supporting testing, organization,
+                  and feature planning.
                 </p>
               </div>
             </div>
