@@ -1,128 +1,149 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { supabase } from "@/lib/supabase";
-import BusinessCard from "../components/BusinessCard";
-import Hero from "../components/Hero";
-
+import FoundItemCard from "../components/FoundItemCard";
+import Hero from "@/components/Hero";
 
 export default function Home() {
-
-  const [businesses, setBusinesses] = useState<any[]>([]);
-
+  const [items, setItems] = useState<any[]>([]);
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   useEffect(() => {
-    const fetchBusinesses = async () => {
+    const fetchItems = async () => {
       const { data, error } = await supabase
-        .from("businesses")
+        .from("found_items")
         .select("*")
         .eq("status", "approved");
-
-      console.log("Supabase data:", data);
-      console.log("Supabase error:", error);
 
       if (error) {
         console.error("Supabase error:", error);
       } else {
-        setBusinesses(data ?? []);
+        setItems(data ?? []);
       }
     };
 
-    fetchBusinesses();
+    fetchItems();
   }, []);
 
+  /* -----------------------------
+     Dynamic Categories
+  ----------------------------- */
 
+  const categories = useMemo(() => {
+    const unique = new Set(
+      items.map((item) => item.category).filter(Boolean)
+    );
+    return Array.from(unique);
+  }, [items]);
 
-  const [sortBy, setSortBy] = useState("name");
+  /* -----------------------------
+     Filtering
+  ----------------------------- */
 
+  const filteredItems = items
+    .filter((item) =>
+      item.item_name?.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((item) =>
+      categoryFilter === "all"
+        ? true
+        : item.category === categoryFilter
+    );
 
-  const [categoryFilter, setCategoryFilter] = useState("all");
+  /* -----------------------------
+     Sorting
+  ----------------------------- */
 
-
-  const categories = Array.from(
-    new Set(businesses.map((business) => business.category))
-  );
-
-
-  console.log("Businesses length:", businesses.length);
-  console.log("Derived categories:", categories);
-
-
-
-  const filteredBusinesses =
-    categoryFilter === "all"
-      ? businesses
-      : businesses.filter(
-          (business) => business.category === categoryFilter
-        );
-
-
- const sortedBusinesses = [...filteredBusinesses].sort((a, b) => {
-    if (sortBy === "rating") {
-      return b.rating - a.rating;
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    if (sortBy === "newest") {
+      return (
+        new Date(b.created_at || b.date_found).getTime() -
+        new Date(a.created_at || a.date_found).getTime()
+      );
     }
 
-    return a.name.localeCompare(b.name);
+    if (sortBy === "oldest") {
+      return (
+        new Date(a.created_at || a.date_found).getTime() -
+        new Date(b.created_at || b.date_found).getTime()
+      );
+    }
+
+    // Alphabetical
+    return a.item_name.localeCompare(b.item_name);
   });
 
-  
-//<main className="relative min-h-screen w-full">
-//<div className="flex min-h-screen items-center justify-center font-sans">
-//<main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-8 py-32 px-16 sm:items-start">
-
-
   return (
-    <div className="flex min-h-screen items-center justify-center font-sans">
+    <div className="flex min-h-screen justify-center font-sans">
       <main className="relative min-h-screen w-full">
 
         <Hero />
-        
-        <section className="mx-auto max-w-6xl px-6 py-5">
 
+        <section className="mx-auto max-w-6xl px-6 py-10">
 
-          <div className="flex items-center gap-2">
-            <label className="text-sm font-medium">Sort by:</label>
+          {/* SEARCH + FILTER + SORT */}
+          <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+            {/* LEFT SIDE CONTROLS */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+
+              {/* Search */}
+              <input
+                type="text"
+                placeholder="Search found items..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full sm:w-72 rounded-md border border-white/20 bg-black/40 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+
+              {/* Category Filter */}
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="rounded-md border border-white/20 bg-black/40 px-3 py-2 text-white"
+              >
+                <option value="all">All Categories</option>
+
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+
+            </div>
+
+            {/* SORT DROPDOWN */}
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-            className="rounded border border-[color:var(--card-border)] bg-[color:var(--card)] px-2 py-1 text-sm text-[color:var(--foreground)]"
+              className="rounded-md border border-white/20 bg-black/40 px-3 py-2 text-white"
             >
-              <option value="name">Name</option>
-              <option value="rating">Rating</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="alphabetical">Alphabetical</option>
             </select>
+
           </div>
 
-          <div className="flex items-center gap-2">
-            <label className="text-sm font-medium">Category:</label>
-            <select
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-              className="rounded border border-[color:var(--card-border)] bg-[color:var(--card)] px-2 py-1 text-sm text-[color:var(--foreground)]"
-            >
-              <option value="all">All</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-
-            </select>
-          </div>
-
-
-          <div className="w-full space-y-4">
-            {sortedBusinesses.map((business) => (
-              <BusinessCard
-                key={business.id}
-                name={business.name}
-                category={business.category}
-                rating={business.rating}
-                address={business.address}
-                description={business.description}
-                website={business.website}
+          {/* ITEM GRID */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {sortedItems.map((item) => (
+              <FoundItemCard
+                key={item.id}
+                id={item.id}
+                title={item.item_name}
+                description={item.description}
+                location_found={item.location_found}
+                date_found={item.date_found}
+                image_url={item.image_url}
               />
             ))}
           </div>
+
         </section>
       </main>
     </div>

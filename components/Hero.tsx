@@ -55,24 +55,24 @@ export default function Hero() {
                     <div className="mx-auto max-w-[850px] text-center lg:text-left">
 
                         <h1 className="font-semibold tracking-tight text-white leading-tight text-[clamp(2.5rem,5vw,5rem)]">
-                        Supporting Local Businesses & Communities
+                        Find What’s Lost. Return What’s Found.
                         </h1>
 
-                        <p className="mt-8 text-zinc-300 text-[clamp(1rem,1.5vw,1.4rem)]">
-                        Welcome to Marmot Association — a community dedicated to helping
-                        you find and support local small businesses in your area.
+                        <p className="mt-8 text-zinc-300 text-[clamp(1rem,1.5vw,1.4rem)] 2xl:pt-10 2xl:pb-10">
+                        Found-It is your school’s official lost-and-found system. Quickly report items, search what’s been found, and help get belongings back to their owners.
+
                         </p>
 
                         {/* CTA buttons */}
                         <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
 
                         <button className="rounded-md bg-purple-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-purple-500">
-                            Explore Businesses
+                            Browse Found Items
                         </button>
 
-                        <Link href="/add-business">
+                        <Link href="/report-item">
                             <button className="rounded-md border border-white/20 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10">
-                            Add Your Business
+                            Report a Found Item
                             </button>
                         </Link>
                         </div>
@@ -143,7 +143,7 @@ export default function Hero() {
                         {/* Quote */}
                         <div className="absolute bottom-[5%] left-[5%] right-[5%]">
                             <p className="text-sm italic text-zinc-300">
-                            “When you support a small business, you're supporting a dream.”
+                            “Small actions return big things.”
                             </p>
                         </div>
 
