@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/lib/useUser";
 import { useRouter } from "next/navigation";
+import { FaFileUpload } from "react-icons/fa";
 
 export default function ReportItemPage() {
   const { user } = useUser();
@@ -18,6 +19,7 @@ export default function ReportItemPage() {
   const [locationFound, setLocationFound] = useState("");
   const [dateFound, setDateFound] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
 
   useEffect(() => {
@@ -52,11 +54,23 @@ export default function ReportItemPage() {
     const finalCategory =
       category === "other" ? customCategory.trim() : category;
 
-    if (!itemName || !finalCategory || !description || !locationFound || !dateFound) {
+    if (!itemName || !finalCategory || !description || !locationFound || !dateFound || !selectedFile) {
       alert("Please fill out all required fields.");
       return;
     }
 
+    const { error: uploadError, data: uploadData } = await supabase.storage
+      .from("item-images")
+      .upload(
+        `images/${user.id}/${Date.now()}_${crypto.randomUUID()}`,
+        selectedFile as File,
+      );
+
+    if (uploadError) {
+      console.error(uploadError);
+      alert("Failed to upload image: " + uploadError.message);
+      return;
+    }
 
     const { error } = await supabase.from("found_items").insert({
       item_name: itemName,
@@ -66,6 +80,7 @@ export default function ReportItemPage() {
       date_found: dateFound,
       status: "pending",
       submitted_by: user.id,
+      image_url: uploadData.fullPath ? supabase.storage.from("item-images").getPublicUrl(uploadData.fullPath)?.data?.publicUrl : null,
     });
 
     if (error) {
@@ -134,6 +149,32 @@ export default function ReportItemPage() {
         value={dateFound}
         onChange={(e) => setDateFound(e.target.value)}
       />
+
+            {/* Image Upload */}
+      <label className="group relative block w-full cursor-pointer overflow-hidden rounded-xl border border-dashed p-4">
+        <input
+          type="file"
+          accept="image/*"
+          className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+          onChange={(e) => {
+            const file = e.target.files?.[0] ?? null;
+            setSelectedFile(file);
+          }}
+        />
+
+        <div className="flex items-center gap-4">
+          <div className="grid h-12 w-12 place-items-center rounded-full">
+            <FaFileUpload className="text-lg" />
+          </div>
+
+          <div>
+            <p className="text-sm font-medium text-white">
+              {selectedFile?.name || "Upload an image of the found item"}
+            </p>
+            <p className="text-xs">Click to browse your files</p>
+          </div>
+        </div>
+      </label>
 
       {/* Description */}
       <textarea
